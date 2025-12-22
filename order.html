@@ -332,7 +332,7 @@
       </div>
       <nav>
         <a href="index.html">Homepage</a>
-        <a href="tentang.html">About ChocoCrave</a>
+        <a href="tentang.html">Tentang ChocoCrave</a>
         <a class="cta" href="order.html">Order Now</a>
       </nav>
     </header>
@@ -447,9 +447,9 @@
           <div class="confirm-card">
             <div class="confirm-title">Pesanan</div>
             <div class="confirm-row">
-              <div>Classic : <span id="cClassic"></span></div>
-              <div>Cheese : <span id="cCheese"></span></div>
-              <div>Almond : <span id="cAlmond"></span></div>
+              <div>Classic Fudgy : <span id="cClassic"></span></div>
+              <div>Cheese Sprinkle : <span id="cCheese"></span></div>
+              <div>Almond Bliss : <span id="cAlmond"></span></div>
               <div><strong>Total :</strong> <span id="cTotal"></span></div>
             </div>
           </div>
@@ -594,9 +594,9 @@
       function sendWA() {
         let pesan = "";
         if (+classic.innerText)
-          pesan += `- Classic : ${classic.innerText} box\n`;
-        if (+cheese.innerText) pesan += `- Cheese : ${cheese.innerText} box\n`;
-        if (+almond.innerText) pesan += `- Almond : ${almond.innerText} box\n`;
+          pesan += `- Classic Fudgy : ${classic.innerText} box\n`;
+        if (+cheese.innerText) pesan += `- Cheese Sprinkle : ${cheese.innerText} box\n`;
+        if (+almond.innerText) pesan += `- Almond Bliss : ${almond.innerText} box\n`;
 
         const total =
           classic.innerText * price.classic +
@@ -624,4 +624,3 @@ Total : Rp ${total.toLocaleString()}`;
     </script>
   </body>
 </html>
-
