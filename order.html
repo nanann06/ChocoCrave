@@ -312,6 +312,48 @@
         background: none;
         border: 1px solid #f7e4bc;
       }
+      .cart-full {
+        margin-top: 28px;
+        width: 100%;
+      }
+
+      .cart-full .confirm-row {
+        grid-template-columns: 1fr;
+      }
+      .payment-grid {
+        display: grid;
+        gap: 14px;
+      }
+
+      .pay-card {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 16px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.1);
+        cursor: pointer;
+        transition: 0.3s;
+        border: 2px solid transparent;
+      }
+
+      .pay-card:hover {
+        background: rgba(255, 255, 255, 0.18);
+      }
+
+      .pay-card.active {
+        border-color: #f2d7a0;
+        box-shadow: 0 0 14px rgba(255, 215, 160, 0.6);
+      }
+
+      .pay-card input {
+        display: none;
+      }
+
+      .pay-card p {
+        font-size: 13px;
+        color: #ead7b9;
+      }
 
       /* ===== MOBILE ===== */
       @media (max-width: 600px) {
@@ -357,35 +399,6 @@
 
         <!-- STEP 1 -->
         <div class="step-content active" id="step1">
-          <div class="field">
-            <label>Nama Lengkap *</label>
-            <input id="nama" />
-            <div class="error" id="eNama"><span>!</span>Nama wajib diisi</div>
-          </div>
-
-          <div class="field">
-            <label>WhatsApp *</label>
-            <input id="wa" />
-            <div class="error" id="eWa">
-              <span>!</span>Nomor WhatsApp wajib diisi
-            </div>
-          </div>
-
-          <div class="field">
-            <label>Alamat *</label>
-            <input id="alamat" />
-            <div class="error" id="eAlamat">
-              <span>!</span>Alamat wajib diisi
-            </div>
-          </div>
-
-          <div class="actions">
-            <button class="btn" onclick="goStep(2)">Lanjutkan</button>
-          </div>
-        </div>
-
-        <!-- STEP 2 -->
-        <div class="step-content" id="step2">
           <div class="menu-grid">
             <div class="menu-item">
               <img src="ClassicFudgyBrownies.jpg" />
@@ -421,8 +434,42 @@
             </div>
           </div>
 
+          <div class="confirm-card cart-full">
+            <div class="confirm-title">🛒 Keranjang</div>
+            <div class="confirm-row" id="cartPreview">Belum ada pesanan</div>
+          </div>
+
           <div class="error" id="eMenu">
             <span>!</span>Silakan pilih minimal 1 menu
+          </div>
+
+          <div class="actions">
+            <button class="btn" onclick="goStep(2)">Lanjutkan</button>
+          </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div class="step-content" id="step2">
+          <div class="field">
+            <label>Nama Lengkap *</label>
+            <input id="nama" />
+            <div class="error" id="eNama"><span>!</span>Nama wajib diisi</div>
+          </div>
+
+          <div class="field">
+            <label>WhatsApp *</label>
+            <input id="wa" />
+            <div class="error" id="eWa">
+              <span>!</span>Nomor WhatsApp wajib diisi
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Alamat *</label>
+            <input id="alamat" />
+            <div class="error" id="eAlamat">
+              <span>!</span>Alamat wajib diisi
+            </div>
           </div>
 
           <div class="actions">
@@ -436,11 +483,63 @@
         <!-- STEP 3 -->
         <div class="step-content" id="step3">
           <div class="confirm-card">
+            <div class="confirm-title">Metode Pembayaran</div>
+
+            <div class="payment-grid">
+              <!-- BSI -->
+              <div class="pay-card" onclick="selectPay('BSI')">
+                <input
+                  type="radio"
+                  name="payment"
+                  value="BSI"
+                  data-detail="Transfer Bank BSI | 7250518468 | a.n Nanda Saputra"
+                />
+                <div>
+                  <strong>Transfer Bank BSI</strong>
+                  <p>No Rek: <b>7250518468</b></p>
+                  <p>a.n <b>Nanda Saputra</b></p>
+                </div>
+              </div>
+
+              <!-- DANA -->
+              <div class="pay-card" onclick="selectPay('DANA')">
+                <input
+                  type="radio"
+                  name="payment"
+                  value="DANA"
+                  data-detail="E-Wallet DANA | 0895410499700 | a.n Nanda Saputra"
+                />
+                <div>
+                  <strong>E-Wallet DANA</strong>
+                  <p>No DANA: <b>0895-4104-99700</b></p>
+                  <p>a.n <b>Nanda Saputra</b></p>
+                </div>
+              </div>
+            </div>
+
+            <div class="error" id="ePay">
+              <span>!</span>Pilih metode pembayaran
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn btn-secondary" onclick="goStep(2)">
+              Kembali
+            </button>
+            <button class="btn" onclick="goStep(4)">Lanjutkan</button>
+          </div>
+        </div>
+
+        <!-- STEP 4 -->
+        <div class="step-content" id="step4">
+          <div class="confirm-card">
             <div class="confirm-title">Informasi Kontak</div>
             <div class="confirm-row">
               <div>Nama : <span id="cNama"></span></div>
               <div>WhatsApp : <span id="cWa"></span></div>
               <div>Alamat : <span id="cAlamat"></span></div>
+              <div>Metode Pembayaran : <span id="cPayment"></span></div>
+              <div>Detail Pembayaran : <span id="cPaymentDetail"></span></div>
             </div>
           </div>
 
@@ -455,7 +554,7 @@
           </div>
 
           <div class="actions">
-            <button class="btn btn-secondary" onclick="goStep(2)">
+            <button class="btn btn-secondary" onclick="goStep(3)">
               Kembali
             </button>
             <button class="btn" onclick="sendWA()">Kirim Pesanan</button>
@@ -492,13 +591,18 @@
 
       function updateProgress() {
         document.getElementById("bar").style.width =
-          currentStep === 1 ? "33%" : currentStep === 2 ? "66%" : "100%";
+          currentStep === 1
+            ? "25%"
+            : currentStep === 2
+            ? "50%"
+            : currentStep === 3
+            ? "75%"
+            : "100%";
       }
 
       function goStep(n) {
-        if (n === 2 && !validate()) return;
-
-        if (n === 3) {
+        // VALIDASI MENU → SAAT PINDAH DARI STEP 1 KE STEP 2
+        if (currentStep === 1 && n === 2) {
           const totalMenu =
             +classic.innerText + +cheese.innerText + +almond.innerText;
 
@@ -510,6 +614,23 @@
           }
         }
 
+        // VALIDASI DATA DIRI → SAAT PINDAH KE STEP 3
+        if (currentStep === 2 && n === 3) {
+          if (!validate()) return;
+        }
+
+        // VALIDASI PEMBAYARAN → STEP 3 KE 4
+        if (currentStep === 3 && n === 4) {
+          const pay = document.querySelector('input[name="payment"]:checked');
+          if (!pay) {
+            ePay.style.display = "flex";
+            return;
+          }
+          ePay.style.display = "none";
+          fillConfirm();
+        }
+
+        // PINDAH STEP
         document
           .querySelectorAll(".step-content")
           .forEach((s) => s.classList.remove("active"));
@@ -519,12 +640,12 @@
         currentStep = n;
         updateProgress();
 
-        if (n === 1) setHeader(icons.user, "Lengkapi data diri Anda");
-        if (n === 2) setHeader(icons.menu, "Pilih menu yang Anda inginkan");
-        if (n === 3) {
+        // HEADER
+        if (n === 1) setHeader(icons.menu, "Pilih menu brownies Anda");
+        if (n === 2) setHeader(icons.user, "Lengkapi data diri Anda");
+        if (n === 3) setHeader(icons.user, "Pilih metode pembayaran");
+        if (n === 4)
           setHeader(icons.check, "Periksa kembali pesanan Anda", true);
-          fillConfirm();
-        }
       }
 
       function validate() {
@@ -561,6 +682,34 @@
       function qty(id, d) {
         const el = document.getElementById(id);
         el.innerText = Math.max(0, +el.innerText + d);
+        updateCart();
+      }
+
+      function updateCart() {
+        let html = "";
+        let total = 0;
+
+        if (+classic.innerText) {
+          html += `<div>Classic Fudgy (${classic.innerText})</div>`;
+          total += classic.innerText * price.classic;
+        }
+        if (+cheese.innerText) {
+          html += `<div>Cheese Sprinkle (${cheese.innerText})</div>`;
+          total += cheese.innerText * price.cheese;
+        }
+        if (+almond.innerText) {
+          html += `<div>Almond Bliss (${almond.innerText})</div>`;
+          total += almond.innerText * price.almond;
+        }
+
+        document.getElementById("cartPreview").innerHTML =
+          html || "Belum ada pesanan";
+
+        if (total > 0) {
+          document.getElementById(
+            "cartPreview"
+          ).innerHTML += `<div><strong>Total:</strong> Rp ${total.toLocaleString()}</div>`;
+        }
       }
 
       function fillConfirm() {
@@ -568,35 +717,48 @@
         cWa.innerText = wa.value;
         cAlamat.innerText = alamat.value;
 
-        let html = "";
-        let total = 0;
+        cClassic.innerText = classic.innerText;
+        cCheese.innerText = cheese.innerText;
+        cAlmond.innerText = almond.innerText;
 
-        if (+classic.innerText) {
-          html += `<div>Classic Fudgy : ${classic.innerText} box</div>`;
-          total += classic.innerText * price.classic;
-        }
-        if (+cheese.innerText) {
-          html += `<div>Cheese Sprinkle : ${cheese.innerText} box</div>`;
-          total += cheese.innerText * price.cheese;
-        }
-        if (+almond.innerText) {
-          html += `<div>Almond Bliss : ${almond.innerText} box</div>`;
-          total += almond.innerText * price.almond;
-        }
+        const total =
+          classic.innerText * price.classic +
+          cheese.innerText * price.cheese +
+          almond.innerText * price.almond;
 
-        document.querySelector(
-          "#step3 .confirm-card:nth-child(2) .confirm-row"
-        ).innerHTML =
-          html +
-          `<div><strong>Total :</strong> Rp ${total.toLocaleString()}</div>`;
+        cTotal.innerText = "Rp " + total.toLocaleString();
+
+        const pay = document.querySelector('input[name="payment"]:checked');
+        cPayment.innerText = pay ? pay.value : "-";
+        cPaymentDetail.innerText = pay ? pay.dataset.detail : "-";
+      }
+
+      function selectPay(method) {
+        document
+          .querySelectorAll(".pay-card")
+          .forEach((c) => c.classList.remove("active"));
+
+        const selected = [
+          ...document.querySelectorAll("input[name='payment']"),
+        ].find((r) => r.value === method);
+
+        if (!selected) return;
+
+        selected.checked = true;
+        selected.parentElement.classList.add("active");
       }
 
       function sendWA() {
         let pesan = "";
         if (+classic.innerText)
           pesan += `- Classic Fudgy : ${classic.innerText} box\n`;
-        if (+cheese.innerText) pesan += `- Cheese Sprinkle : ${cheese.innerText} box\n`;
-        if (+almond.innerText) pesan += `- Almond Bliss : ${almond.innerText} box\n`;
+        if (+cheese.innerText)
+          pesan += `- Cheese Sprinkle : ${cheese.innerText} box\n`;
+        if (+almond.innerText)
+          pesan += `- Almond Bliss : ${almond.innerText} box\n`;
+
+        const payEl = document.querySelector('input[name="payment"]:checked');
+        const payment = payEl ? payEl.value : "-";
 
         const total =
           classic.innerText * price.classic +
@@ -610,7 +772,8 @@ Alamat : ${alamat.value}
 
 Saya ingin Memesan:
 ${pesan}
-Total : Rp ${total.toLocaleString()}`;
+Total : Rp ${total.toLocaleString()}
+Metode Pembayaran : ${payment}`;
 
         window.open(
           "https://wa.me/6288286522828?text=" + encodeURIComponent(msg),
@@ -619,10 +782,8 @@ Total : Rp ${total.toLocaleString()}`;
       }
 
       // INIT
-      setHeader(icons.user, "Lengkapi data diri Anda");
+      setHeader(icons.menu, "Pilih menu brownies Anda");
       updateProgress();
     </script>
   </body>
 </html>
-
-
