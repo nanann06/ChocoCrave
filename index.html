@@ -138,6 +138,30 @@
         gap: 26px;
       }
 
+      .menu-action {
+        margin-top: 40px;
+        display: flex;
+        justify-content: center;
+      }
+
+      .btn-detail {
+        padding: 14px 38px;
+        border-radius: 22px;
+        background: linear-gradient(135deg, #a36a42, #7a4a2f);
+        color: #fff;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 15px;
+        letter-spacing: 0.5px;
+        box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45);
+        transition: all 0.3s ease;
+      }
+
+      .btn-detail:hover {
+        transform: translateY(-4px) scale(1.05);
+        box-shadow: 0 0 24px rgba(255, 215, 160, 0.6);
+      }
+
       .card {
         background: rgba(255, 255, 255, 0.08);
         padding: 18px;
@@ -266,25 +290,27 @@
       <h2>Our Menu</h2>
       <div class="menu-grid">
         <div class="card">
-          <img src="ClassicFudgyBrownies.jpg" />
+          <img src="ClassicFudgyBrownies.jpg" alt="Classic Fudgy Brownies" />
           <h3>Classic Fudgy</h3>
           <p>Brownies Coklat dengan Tekstur yang Lembut</p>
-          <a href="order.html">Order Now</a>
         </div>
 
         <div class="card">
           <img src="cheese.jpeg" />
           <h3>Cheesy Sprinkle</h3>
           <p>Brownies Coklat dengan Taburan Keju yang Gurih</p>
-          <a href="order.html">Order Now</a>
         </div>
 
         <div class="card">
           <img src="almond.jpeg" />
           <h3>Almond Bliss</h3>
           <p>Brownies Coklat dengan Topping Almond yang Renyah</p>
-          <a href="order.html">Order Now</a>
         </div>
+      </div>
+
+      <!-- TOMBOL DI BAWAH MENU -->
+      <div class="menu-action">
+        <a href="order.html" class="btn-detail">Lihat Selengkapnya</a>
       </div>
     </section>
 
@@ -329,4 +355,3 @@
     </footer>
   </body>
 </html>
-
